@@ -1,0 +1,88 @@
+title = "1. Vserver Information:"
+function_title (title)
+command = "rows 0 ;vserver show -vserver vserver -fields vserver,type,rootvolume,ldap-client,allowed-protocols ,aggregate,type
+filerconnect_withnode(cluster,command)
+print ("1.Vserver Information:                          Completed")
+
+
+title = "2.Vserver DNS server Information:"
+function_title (title)
+command = "rows 0 ; services dns show -vserver vserver -fields domains,name-servers "
+filerconnect_withoutnode (cluster,command)
+print ("2.Vserver DNS server Information:                 Completed")
+
+
+title = "3.Vserver NFS Information:"
+function_title (title)
+command = "rows 0 ;set advanaced ; vserver nfs show -vserver vserver -fields extended-groups-limit,     access,v4.0-acl,v4.0-write-delegation,v4.0-read-delegation,v4-id-domain,v4-acl-preserve,rquota,v4.1-acl,v4.1-read-delegation,v3,v4.0,auth-sys-extended-groups,cached-cred-positive-ttl ,cached-cred-negative-ttl,v3-64bit-identifiers "
+filerconnect_withoutnode (cluster,command)
+print ( "3.Vserver NFS Information:                        Completed")
+
+title = "4.Vserver Expoprt poliy information:"
+function_title (title)
+command = "rows 0; export-policy show -vserver vserver -policyname *"
+filerconnect_withoutnode (cluster,command)
+command = "rows 0; export-policy rule show -vserver vserver -fields rw,ro,superuser"
+filerconnect_withoutnode (cluster,command)
+print ("4.Vserver Expoprt poliy information:              Completed")
+
+title = "5.Vserver NS-SWITCH Information:"
+function_title (title)
+command = "rows 0; services ns-switch show -vserver vserver -database group,hosts,passwd"
+filerconnect_withoutnode (cluster,command)
+print ("5.Vserver NS-SWITCH Information:                   Completed")
+
+title = "6.Vserver Default Router Information:"
+function_title (title)
+command = "rows 0;route show -vserver vserver -fields destination,gateway ,metric"
+filerconnect_withoutnode (cluster,command)
+print ("6.Vserver Default Router Information:               Completed")
+
+title = "7.Vserver Name-Service Cache Information:"
+function_title (title)
+command = "set diag ;rows 0; name-service cache unix-user settings show -vserver vserver "
+filerconnect_withoutnode (cluster,command)
+print ("7.Vserver Name-Service Cache Information:           Completed")
+
+
+title = "8.Vserver LDAP Information:"
+function_title (title)
+command = "rows 0; name-service ldap show -vserver vserver  -fields client-config"
+filerconnect_withoutnode (cluster,command)
+command = "rows 0; ldap client schema show -schema SNPS -vserver vserver"
+filerconnect_withoutnode (cluster,command)
+command = :rows 0;ldap client show -vserver vserver -fields client-config ,ldap-servers,base-dn,user-dn,bind-dn,schema,base-scope,group-dn"
+filerconnect_withoutnode (cluster,command)
+print ("8.Vserver LDAP Information:                      Completed")
+
+title = "9.Vserver Snapshot Policy Information:"
+function_title (title)
+command = "set admin ;rows 0 ; snapshot policy show -vserver vserver"
+filerconnect_withoutnode (cluster,command)
+print ("9.Vserver Snapshot Policy Information:............Completed")
+
+title = "10.Test User and Group:"
+function_title (title)
+command = "rows 0;set diag ; secd authentication translate -node * -vserver vserver -unix-user-name username"
+filerconnect_withnode (cluster,command)
+
+command = "rows 0;set diag ; secd authentication translate -node * -vserver vserveru -unix-user-name regress"
+filerconnect_withnode (cluster,command)
+
+command = "rows 0;set diag ; secd authentication translate -node us01netapp* -vserver vserver -unix-group-name essm"
+filerconnect_withnode (cluster,command)
+print ("10.Test User and Group:                           Completed")
+filerconnect_withnode (cluster,command)
+
+title = "11. Verify the group listing of a user:"
+function_title (title)
+command = "rows 0;getxxbyyy getgrlist -node * -vserver vserver -username username"
+filerconnect_withnode (cluster,command)
+print ( "11.Verify the group listing of a user:...........Completed")
+
+
+title = "12.Test withdrawn user:"
+function_title (title)
+command = "rows 0;set diag ; secd authentication translate -node *  -vserver vserver -unix-user-name rwu"
+filerconnect_withnode (cluster,command)
+print ( "12.Test withdrawn user:..........................Completed")

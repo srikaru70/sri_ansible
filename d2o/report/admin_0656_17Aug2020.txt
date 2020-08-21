@@ -1,0 +1,573 @@
+Vserver Information: Report is created for the nodes us01netappansible02 by admin  on 17 Aug 2020  06:56:11
+_________________________________________________________________________________________________
+1. Vserver Information:
+
+Last login time: 7/27/2020 16:07:11
+Unsuccessful login attempts since last login: 1
+
+vserver                type rootvolume                  aggregate                      ldap-client                allowed-protocols       
+---------------------- ---- --------------------------- ------------------------------ -------------------------- ----------------------- 
+us01netappansiblenfsv4 data root_us01netappansiblenfsv4 us01netappansible02_fcal_aggr1 us01netappansiblenfsv4ldap nfs,cifs,fcp,iscsi,ndmp 
+
+
+------------------------------------------------------------------------------------------
+2.Vserver DNS server Information:
+
+Last login time: 7/27/2020 16:10:12
+
+vserver                domains                            name-servers          
+---------------------- ---------------------------------- --------------------- 
+us01netappansiblenfsv4 internal.synopsys.com,synopsys.com 10.228.0.1,10.228.0.2 
+
+
+------------------------------------------------------------------------------------------
+3.Vserver NFS Information:
+
+Last login time: 7/27/2020 16:10:12
+
+
+
+                                           Vserver: us01netappansiblenfsv4
+                                General NFS Access: true
+             RPC GSS Context Cache High Water Mark: 0
+                              RPC GSS Context Idle: 0
+                                            NFS v3: enabled
+                                          NFS v4.0: enabled
+                                      UDP Protocol: enabled
+                                      TCP Protocol: enabled
+                              Default Windows User: -
+                       Enable NFSv3 EJUKEBOX error: true
+ Require All NFSv3 Reads to Return Read Attributes: false
+Show Change in FSID as NFSv3 Clients Traverse Filesystems: enabled
+Enable the Dropping of a Connection When an NFSv3 Request is Dropped: enabled
+                Vserver NTFS Unix Security Options: use_export_policy
+                     Vserver Change Ownership Mode: use_export_policy
+                        NFS Response Trace Enabled: false
+                    NFS Response Trigger (in secs): 60
+                 UDP Maximum Transfer Size (bytes): 32768
+                 TCP Maximum Transfer Size (bytes): 65536
+               NFSv3 TCP Maximum Read Size (bytes): 65536
+              NFSv3 TCP Maximum Write Size (bytes): 65536
+                               NFSv4.0 ACL Support: enabled
+                   NFSv4.0 Read Delegation Support: enabled
+                  NFSv4.0 Write Delegation Support: enabled
+Show Change in FSID as NFSv4 Clients Traverse Filesystems: enabled
+                          NFSv4.0 Referral Support: disabled
+                           NFSv4 ID Mapping Domain: synopsys.com
+NFSv4 Validate UTF-8 Encoding of Symbolic Link Data: disabled
+               NFSv4 Lease Timeout Value (in secs): 30
+               NFSv4 Grace Timeout Value (in secs): 45
+Preserves and Modifies NFSv4 ACL (and NTFS File Permissions in Unified Security Style): enabled
+                     NFSv4.1 Minor Version Support: enabled
+                                     Rquota Enable: disabled
+                  NFSv4.1 Implementation ID Domain: netapp.com
+                    NFSv4.1 Implementation ID Name: NetApp Release 9.6P7
+                    NFSv4.1 Implementation ID Date: Tue Mar 31 21:22:18 2020
+                      NFSv4.1 Parallel NFS Support: enabled
+                          NFSv4.1 Referral Support: disabled
+                               NFSv4.1 ACL Support: enabled
+                              NFS vStorage Support: disabled
+               NFSv4 Support for Numeric Owner IDs: enabled
+                             Default Windows Group: -
+                   NFSv4.1 Read Delegation Support: disabled
+                  NFSv4.1 Write Delegation Support: disabled
+Number of Slots in the NFSv4.x Session slot tables: 180
+Size of the Reply that will be Cached in Each NFSv4.x Session Slot (in bytes): 640
+                    Maximum Number of ACEs per ACL: 400
+                               NFS Mount Root Only: enabled
+                                     NFS Root Only: disabled
+                  AUTH_SYS Extended Groups Enabled: enabled
+    AUTH_SYS and RPCSEC_GSS Auxillary Groups Limit: 256
+ Validation of Qtree IDs for Qtree File Operations: enabled
+                             NFS Mount Daemon Port: 635
+                         Network Lock Manager Port: 4045
+                       Network Status Monitor Port: 4046
+                             NFS Quota Daemon Port: 4049
+               Permitted Kerberos Encryption Types: des, des3, aes-128, aes-256
+                                 Showmount Enabled: enabled
+Set the Protocol Used for Name Services Lookups for Exports: udp
+           Map Unknown UID to Default Windows User: enable
+  DNS Domain Search Enabled During Netgroup Lookup: enabled
+Trust No-Match Result from Any Name Service Switch Source During Netgroup Lookup: disabled
+  Display maximum NT ACL Permissions to NFS Client: disabled
+                       NFSv3 MS-DOS Client Support: disabled
+       Ignore the NT ACL Check for NFS User 'root': disabled
+Time To Live Value (in msecs) of a Positive Cached Credential: 360000
+Time To Live Value (in msecs) of a Negative Cached Credential: 360000
+Skip Permission Check for NFS Write Calls from Root/Owner: disabled
+          Use 64 Bits for NFSv3 FSIDs and File IDs: disabled
+Ignore Client Specified Mode Bits and Preserve Inherited NFSv4 ACL When Creating New Files or Directories: disabled
+           Fallback to Unconverted Filename Search: disabled
+              I/O Count to Be Grouped as a Session: 5000
+Duration for I/O to Be Grouped as a Session (Secs): 120
+       Enable or disable Checksum for Replay-Cache: enabled
+Harvest timeout (in msecs) for a Cached Credential: 86400000
+        Idle Connection Timeout Value (in seconds): 360
+                Are Idle NFS Connections Supported: disabled
+   Hide Snapshot Directory under NFSv3 Mount Point: disabled
+              Provide Root Path as Showmount State: disabled
+
+
+------------------------------------------------------------------------------------------
+4.Vserver Expoprt poliy information:
+
+Last login time: 7/27/2020 16:10:12
+
+Vserver          Policy Name
+---------------  -------------------
+us01netappansiblenfsv4  default
+us01netappansiblenfsv4  snps
+us01netappansiblenfsv4  snps_ro
+3 entries were displayed.
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 16:10:12
+
+vserver                policyname ruleindex rorule rwrule superuser 
+---------------------- ---------- --------- ------ ------ --------- 
+us01netappansiblenfsv4 default    1         any    any    none      
+us01netappansiblenfsv4 snps       1         any    any    any       
+us01netappansiblenfsv4 snps       2         any    any    none      
+us01netappansiblenfsv4 snps       3         any    any    any       
+us01netappansiblenfsv4 snps_ro    1         any    any    any       
+us01netappansiblenfsv4 snps_ro    2         any    any    none      
+us01netappansiblenfsv4 snps_ro    3         any    any    any       
+us01netappansiblenfsv4 snps_ro    4         any    none   none      
+8 entries were displayed.
+
+
+------------------------------------------------------------------------------------------
+5.Vserver NS-SWITCH Information:
+
+Last login time: 7/27/2020 16:10:12
+
+                               Source
+Vserver         Database       Order
+--------------- ------------   ---------
+us01netappansiblenfsv4 hosts
+                               files,
+                               dns
+us01netappansiblenfsv4 group
+                               files,
+                               ldap
+us01netappansiblenfsv4 passwd
+                               files,
+                               ldap
+3 entries were displayed.
+
+
+------------------------------------------------------------------------------------------
+6.Vserver Default Router Information:
+
+Last login time: 7/27/2020 16:10:12
+
+vserver                destination gateway     metric 
+---------------------- ----------- ----------- ------ 
+us01netappansiblenfsv4 0.0.0.0/0   192.168.1.1 20     
+
+
+------------------------------------------------------------------------------------------
+7.Vserver Name-Service Cache Information:
+
+Last login time: 7/27/2020 16:10:12
+
+
+  (vserver services name-service cache unix-user settings show)
+Vserver         Enabled Negative-cache TTL        Negative TTL Propagation
+                        Enabled                                Enabled
+--------------- ------- -------------- ---------- ------------ --------------
+us01netappansiblenfsv4 true true       1h         1h           true
+
+
+------------------------------------------------------------------------------------------
+8.Vserver LDAP Information:
+
+Last login time: 7/27/2020 16:10:12
+
+  (vserver services name-service ldap show)
+vserver                client-config              
+---------------------- -------------------------- 
+us01netappansiblenfsv4 us01netappansiblenfsv4ldap 
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 16:10:12
+
+
+                                           Vserver: us01netappansiblenfsv4
+                                   Schema Template: SNPS
+                                           Comment: 
+                RFC 2307 posixAccount Object Class: posixAccount
+                  RFC 2307 posixGroup Object Class: posixGroup
+                 RFC 2307 nisNetgroup Object Class: nisNetgroup
+                            RFC 2307 uid Attribute: uid
+                      RFC 2307 uidNumber Attribute: uidNumber
+                      RFC 2307 gidNumber Attribute: gidNumber
+                RFC 2307 cn (for Groups) Attribute: cn
+             RFC 2307 cn (for Netgroups) Attribute: cn
+                   RFC 2307 userPassword Attribute: userPassword
+                          RFC 2307 gecos Attribute: gecos
+                  RFC 2307 homeDirectory Attribute: homeDirectory
+                     RFC 2307 loginShell Attribute: loginShell
+                      RFC 2307 memberUid Attribute: memberUid
+              RFC 2307 memberNisNetgroup Attribute: memberNisNetgroup
+              RFC 2307 nisNetgroupTriple Attribute: nisNetgroupTriple
+              Enable Support for Draft RFC 2307bis: true
+       RFC 2307bis groupOfUniqueNames Object Class: groupOfNames
+                RFC 2307bis uniqueMember Attribute: member
+Data ONTAP Name Mapping windowsToUnix Object Class: posixAccount
+  Data ONTAP Name Mapping windowsAccount Attribute: windowsAccount
+   Data ONTAP Name Mapping windowsToUnix Attribute: windowsAccount
+   No Domain Prefix for windowsToUnix Name Mapping: false
+                               Vserver Owns Schema: false
+                   RFC 2307 nisObject Object Class: nisObject
+                     RFC 2307 nisMapName Attribute: nisMapName
+                    RFC 2307 nisMapEntry Attribute: nisMapEntry
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 16:10:12
+
+
+vserver                client-config              ldap-servers                 schema bind-dn base-dn            base-scope user-dn                               group-dn                              use-start-tls group-membership-filter 
+---------------------- -------------------------- ---------------------------- ------ ------- ------------------ ---------- ------------------------------------- ------------------------------------- ------------- ----------------------- 
+us01netappansiblenfsv4 us01netappansiblenfsv4ldap us01ds.internal.synopsys.com SNPS   -       dc=synopsys,dc=com subtree    ou=users,dc=global,dc=synopsys,dc=com ou=group,dc=global,dc=synopsys,dc=com true                                  
+
+
+------------------------------------------------------------------------------------------
+9.Vserver Snapshot Policy Information:
+
+Last login time: 7/27/2020 16:10:12
+
+
+Vserver: us01netappansiblenfsv4
+                         Number of Is
+Policy Name              Schedules Enabled Comment
+------------------------ --------- ------- ----------------------------------
+snps                             3 true    -
+    Schedule               Count     Prefix                 SnapMirror Label
+    ---------------------- -----     ---------------------- -------------------
+    hourly                     4     hourly                 -
+    daily                      2     daily                  -
+    weekly                     1     weekly                 -
+
+snps_backup                      3 true    -
+    Schedule               Count     Prefix                 SnapMirror Label
+    ---------------------- -----     ---------------------- -------------------
+    hourly                     4     hourly                 -
+    daily                      2     daily                  -
+    DPS_SV_DAILY               1     DPS_SV_DAILY           DPS_SV_DAILY
+
+2 entries were displayed.
+
+
+------------------------------------------------------------------------------------------
+10.Test User and Group:
+
+Last login time: 7/27/2020 16:10:12
+
+
+
+Vserver: us01netappansiblenfsv4 (internal ID: 34)
+
+Error: Acquire UNIX credentials procedure failed
+  ...
+           source: FILES. Ignoring and trying next available source
+  [     4] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     4] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     4] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     4] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     4] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+**[     4] FAILURE: Hostname lookup failed with error: hostname nor
+**         servname provided, or not known
+  [     4] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     4] Resolved LDAP servers: . Vserver: 34
+  [     4] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     5] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     6] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     6] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     6] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     6] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+  [     6] Hostname lookup failed with error: hostname nor servname
+           provided, or not known
+  [     6] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     6] Resolved LDAP servers: . Vserver: 34
+  [     6] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     6] Unable to make a connection (LDAP (NIS & Name Mapping):),
+           result: 6940
+  [     6] Source: LDAP unavailable. Entry for user-name:admin not
+           found in any of the available sources
+  [     6] Unable to retrieve UID for UNIX user admin
+
+Error: command failed: Failed to resolve user name to a UNIX ID. Reason: "SecD
+       Error: libc returned a transient error.  Please look at the journal for
+       detail". 
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 16:10:12
+
+
+
+Vserver: us01netappansiblenfsv4 (internal ID: 34)
+
+Error: Acquire UNIX credentials procedure failed
+  ...
+           source: FILES. Ignoring and trying next available source
+  [     3] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     3] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     3] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     3] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     3] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+**[     3] FAILURE: Hostname lookup failed with error: hostname nor
+**         servname provided, or not known
+  [     3] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     3] Resolved LDAP servers: . Vserver: 34
+  [     3] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     5] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     5] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     5] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     5] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     5] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+  [     5] Hostname lookup failed with error: hostname nor servname
+           provided, or not known
+  [     5] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     5] Resolved LDAP servers: . Vserver: 34
+  [     5] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     5] Unable to make a connection (LDAP (NIS & Name Mapping):),
+           result: 6940
+  [     5] Source: LDAP unavailable. Entry for user-name:regress not
+           found in any of the available sources
+  [     5] Unable to retrieve UID for UNIX user regress
+
+Error: command failed: Failed to resolve user name to a UNIX ID. Reason: "SecD
+       Error: libc returned a transient error.  Please look at the journal for
+       detail". 
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 16:10:12
+
+
+
+Vserver: us01netappansiblenfsv4 (internal ID: 34)
+
+Error: Acquire UNIX credentials procedure failed
+  ...
+           source: FILES. Ignoring and trying next available source
+  [     3] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     3] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     3] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     3] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     3] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+**[     3] FAILURE: Hostname lookup failed with error: hostname nor
+**         servname provided, or not known
+  [     3] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     3] Resolved LDAP servers: . Vserver: 34
+  [     3] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     5] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     5] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     5] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     5] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     5] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+  [     5] Hostname lookup failed with error: hostname nor servname
+           provided, or not known
+  [     5] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     5] Resolved LDAP servers: . Vserver: 34
+  [     5] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     5] Unable to make a connection (LDAP (NIS & Name Mapping):),
+           result: 6940
+  [     5] Source: LDAP unavailable. Entry for group-name:essm not
+           found in any of the available sources
+  [     5] Unable to retrieve GID for UNIX groupname essm
+
+Error: command failed: Failed to resolve group name to a UNIX ID. Reason: "SecD
+       Error: libc returned a transient error.  Please look at the journal for
+       detail". 
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 16:10:12
+
+
+
+Vserver: us01netappansiblenfsv4 (internal ID: 34)
+
+Error: Acquire UNIX credentials procedure failed
+  ...
+           source: FILES. Ignoring and trying next available source
+  [     4] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     4] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     4] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     4] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     4] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+**[     4] FAILURE: Hostname lookup failed with error: hostname nor
+**         servname provided, or not known
+  [     4] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     4] Resolved LDAP servers: . Vserver: 34
+  [     4] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     6] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     6] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     6] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     6] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     6] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+  [     6] Hostname lookup failed with error: hostname nor servname
+           provided, or not known
+  [     6] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     6] Resolved LDAP servers: . Vserver: 34
+  [     6] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     6] Unable to make a connection (LDAP (NIS & Name Mapping):),
+           result: 6940
+  [     6] Source: LDAP unavailable. Entry for group-name:essm not
+           found in any of the available sources
+  [     6] Unable to retrieve GID for UNIX groupname essm
+
+Error: command failed: Failed to resolve group name to a UNIX ID. Reason: "SecD
+       Error: libc returned a transient error.  Please look at the journal for
+       detail". 
+
+
+------------------------------------------------------------------------------------------
+11. Verify the group listing of a user:
+
+Last login time: 7/27/2020 16:10:12
+
+
+  (vserver services name-service getxxbyyy getgrlist)
+
+Error: command failed: Failed to resolve username. Reason: Socket is not
+       connected.
+
+
+------------------------------------------------------------------------------------------
+12.Test withdrawn user:
+
+Last login time: 7/27/2020 16:10:12
+
+
+
+Vserver: us01netappansiblenfsv4 (internal ID: 34)
+
+Error: Acquire UNIX credentials procedure failed
+  ...
+           FILES. Ignoring and trying next available source
+  [     3] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     3] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     3] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     3] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     3] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+**[     3] FAILURE: Hostname lookup failed with error: hostname nor
+**         servname provided, or not known
+  [     3] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     3] Resolved LDAP servers: . Vserver: 34
+  [     3] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     4] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     4] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     4] Failed to connect to 10.228.0.1 for DNS: Network is
+           unreachable
+  [     4] Failed to connect to 10.228.0.2 for DNS: Network is
+           unreachable
+  [     4] Entry for host-name: us01ds.internal.synopsys.com not
+           found in any of the available sources
+  [     4] Hostname lookup failed with error: hostname nor servname
+           provided, or not known
+  [     4] None of the hostnames could be resolved. Vserver:
+           us01netappansiblenfsv4
+  [     4] Resolved LDAP servers: . Vserver: 34
+  [     4] No servers available for LDAP_NIS_AND_NAME_MAPPING,
+           vserver: 34, domain: .
+  [     4] Unable to make a connection (LDAP (NIS & Name Mapping):),
+           result: 6940
+  [     4] Source: LDAP unavailable. Entry for user-name:rwu not
+           found in any of the available sources
+  [     5] Unable to retrieve UID for UNIX user rwu
+
+Error: command failed: Failed to resolve user name to a UNIX ID. Reason: "SecD
+       Error: libc returned a transient error.  Please look at the journal for
+       detail". 
+
+
+------------------------------------------------------------------------------------------
+ 13 LS mirror information
+
+Last login time: 7/27/2020 16:10:12
+                                                                       Progress
+Source            Destination Mirror  Relationship   Total             Last
+Path        Type  Path        State   Status         Progress  Healthy Updated
+----------- ---- ------------ ------- -------------- --------- ------- --------
+us01netappansible://us01netappansiblenfsv4/root_us01netappansiblenfsv4 LS us01netappansible://us01netappansiblenfsv4/root_us01netappansiblenfsv4_02_lsm Snapmirrored Idle - true -
+
+
+------------------------------------------------------------------------------------------

@@ -1,0 +1,179 @@
+Vserver Information: Report is created for the nodes us* by admin  on 16 Aug 2020  19:38:24
+_________________________________________________________________________________________________
+1. Vserver Information:
+
+Last login time: 7/27/2020 04:51:29
+Unsuccessful login attempts since last login: 1
+
+There are no entries matching your query.
+
+
+------------------------------------------------------------------------------------------
+2.Vserver DNS server Information:
+
+Last login time: 7/27/2020 04:52:24
+
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+3.Vserver NFS Information:
+
+Last login time: 7/27/2020 04:52:24
+
+
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+4.Vserver Expoprt poliy information:
+
+Last login time: 7/27/2020 04:52:24
+
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:52:24
+
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+5.Vserver NS-SWITCH Information:
+
+Last login time: 7/27/2020 04:52:24
+
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+6.Vserver Default Router Information:
+
+Last login time: 7/27/2020 04:52:24
+
+
+Error: "us01netappansiblevs3" is an invalid value for field "-vserver
+       <vserver>"
+
+
+------------------------------------------------------------------------------------------
+7.Vserver Name-Service Cache Information:
+
+Last login time: 7/27/2020 04:52:24
+
+
+  (vserver services name-service cache unix-user settings show)
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+8.Vserver LDAP Information:
+
+Last login time: 7/27/2020 04:52:24
+
+  (vserver services name-service ldap show)
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:52:24
+
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:52:24
+
+
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+9.Vserver Snapshot Policy Information:
+
+Last login time: 7/27/2020 04:52:24
+
+
+
+Error: Vserver "us01netappansiblevs3" does not exist. 
+
+
+------------------------------------------------------------------------------------------
+10.Test User and Group:
+
+Last login time: 7/27/2020 04:52:24
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:52:24
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:52:24
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:52:24
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+11. Verify the group listing of a user:
+
+Last login time: 7/27/2020 04:52:24
+
+
+  (vserver services name-service getxxbyyy getgrlist)
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+12.Test withdrawn user:
+
+Last login time: 7/27/2020 04:52:24
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+ 13 LS mirror information
+
+Last login time: 7/27/2020 04:52:24
+There are no entries matching your query.
+
+
+------------------------------------------------------------------------------------------

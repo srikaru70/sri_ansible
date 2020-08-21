@@ -1,0 +1,260 @@
+Vserver Information: Report is created for the nodes us* by admin  on 16 Aug 2020  19:45:20
+_________________________________________________________________________________________________
+1. Vserver Information:
+
+Last login time: 7/27/2020 04:58:49
+Unsuccessful login attempts since last login: 1
+
+vserver                type rootvolume                  aggregate                      ldap-client                allowed-protocols       
+---------------------- ---- --------------------------- ------------------------------ -------------------------- ----------------------- 
+us01netappansiblenfsv3 data root_us01netappansiblenfsv3 us01netappansible02_fcal_aggr1 us01netappansiblenfsv3ldap nfs,cifs,fcp,iscsi,ndmp 
+
+
+------------------------------------------------------------------------------------------
+2.Vserver DNS server Information:
+
+Last login time: 7/27/2020 04:59:21
+
+vserver                domains                            name-servers          
+---------------------- ---------------------------------- --------------------- 
+us01netappansiblenfsv3 internal.synopsys.com,synopsys.com 10.228.0.1,10.228.0.2 
+
+
+------------------------------------------------------------------------------------------
+3.Vserver NFS Information:
+
+Last login time: 7/27/2020 04:59:21
+
+
+vserver                access v3      v4.0     v4.0-acl v4.0-read-delegation v4.0-write-delegation v4-id-domain          v4-acl-preserve rquota   v4.1-acl v4.1-read-delegation auth-sys-extended-groups extended-groups-limit cached-cred-positive-ttl cached-cred-negative-ttl v3-64bit-identifiers 
+---------------------- ------ ------- -------- -------- -------------------- --------------------- --------------------- --------------- -------- -------- -------------------- ------------------------ --------------------- ------------------------ ------------------------ -------------------- 
+us01netappansiblenfsv3 true   enabled disabled disabled disabled             disabled              defaultv4iddomain.com enabled         disabled disabled disabled             enabled                  256                   360000                   360000                   disabled             
+
+
+------------------------------------------------------------------------------------------
+4.Vserver Expoprt poliy information:
+
+Last login time: 7/27/2020 04:59:21
+
+Vserver          Policy Name
+---------------  -------------------
+us01netappansiblenfsv3  default
+us01netappansiblenfsv3  snps
+us01netappansiblenfsv3  snps_ro
+3 entries were displayed.
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:59:21
+
+vserver                policyname ruleindex rorule rwrule superuser 
+---------------------- ---------- --------- ------ ------ --------- 
+us01netappansiblenfsv3 default    1         any    any    none      
+us01netappansiblenfsv3 snps       1         any    any    any       
+us01netappansiblenfsv3 snps       2         any    any    none      
+us01netappansiblenfsv3 snps       3         any    any    any       
+us01netappansiblenfsv3 snps_ro    1         any    any    any       
+us01netappansiblenfsv3 snps_ro    2         any    any    none      
+us01netappansiblenfsv3 snps_ro    3         any    any    any       
+us01netappansiblenfsv3 snps_ro    4         any    none   none      
+8 entries were displayed.
+
+
+------------------------------------------------------------------------------------------
+5.Vserver NS-SWITCH Information:
+
+Last login time: 7/27/2020 04:59:21
+
+                               Source
+Vserver         Database       Order
+--------------- ------------   ---------
+us01netappansiblenfsv3 hosts
+                               files,
+                               dns
+us01netappansiblenfsv3 group
+                               files,
+                               ldap
+us01netappansiblenfsv3 passwd
+                               files,
+                               ldap
+3 entries were displayed.
+
+
+------------------------------------------------------------------------------------------
+6.Vserver Default Router Information:
+
+Last login time: 7/27/2020 04:59:21
+
+vserver                destination gateway     metric 
+---------------------- ----------- ----------- ------ 
+us01netappansiblenfsv3 0.0.0.0/0   192.168.1.1 20     
+
+
+------------------------------------------------------------------------------------------
+7.Vserver Name-Service Cache Information:
+
+Last login time: 7/27/2020 04:59:21
+
+
+  (vserver services name-service cache unix-user settings show)
+Vserver         Enabled Negative-cache TTL        Negative TTL Propagation
+                        Enabled                                Enabled
+--------------- ------- -------------- ---------- ------------ --------------
+us01netappansiblenfsv3 true true       1h         1h           true
+
+
+------------------------------------------------------------------------------------------
+8.Vserver LDAP Information:
+
+Last login time: 7/27/2020 04:59:21
+
+  (vserver services name-service ldap show)
+vserver                client-config              
+---------------------- -------------------------- 
+us01netappansiblenfsv3 us01netappansiblenfsv3ldap 
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:59:21
+
+
+                                           Vserver: us01netappansiblenfsv3
+                                   Schema Template: SNPS
+                                           Comment: 
+                RFC 2307 posixAccount Object Class: posixAccount
+                  RFC 2307 posixGroup Object Class: posixGroup
+                 RFC 2307 nisNetgroup Object Class: nisNetgroup
+                            RFC 2307 uid Attribute: uid
+                      RFC 2307 uidNumber Attribute: uidNumber
+                      RFC 2307 gidNumber Attribute: gidNumber
+                RFC 2307 cn (for Groups) Attribute: cn
+             RFC 2307 cn (for Netgroups) Attribute: cn
+                   RFC 2307 userPassword Attribute: userPassword
+                          RFC 2307 gecos Attribute: gecos
+                  RFC 2307 homeDirectory Attribute: homeDirectory
+                     RFC 2307 loginShell Attribute: loginShell
+                      RFC 2307 memberUid Attribute: memberUid
+              RFC 2307 memberNisNetgroup Attribute: memberNisNetgroup
+              RFC 2307 nisNetgroupTriple Attribute: nisNetgroupTriple
+              Enable Support for Draft RFC 2307bis: true
+       RFC 2307bis groupOfUniqueNames Object Class: groupOfNames
+                RFC 2307bis uniqueMember Attribute: member
+Data ONTAP Name Mapping windowsToUnix Object Class: posixAccount
+  Data ONTAP Name Mapping windowsAccount Attribute: windowsAccount
+   Data ONTAP Name Mapping windowsToUnix Attribute: windowsAccount
+   No Domain Prefix for windowsToUnix Name Mapping: false
+                               Vserver Owns Schema: false
+                   RFC 2307 nisObject Object Class: nisObject
+                     RFC 2307 nisMapName Attribute: nisMapName
+                    RFC 2307 nisMapEntry Attribute: nisMapEntry
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:59:21
+
+
+vserver                client-config              ldap-servers                 schema bind-dn base-dn            base-scope user-dn                               group-dn                              use-start-tls group-membership-filter 
+---------------------- -------------------------- ---------------------------- ------ ------- ------------------ ---------- ------------------------------------- ------------------------------------- ------------- ----------------------- 
+us01netappansiblenfsv3 us01netappansiblenfsv3ldap us01ds.internal.synopsys.com SNPS   -       dc=synopsys,dc=com subtree    ou=users,dc=global,dc=synopsys,dc=com ou=group,dc=global,dc=synopsys,dc=com true                                  
+
+
+------------------------------------------------------------------------------------------
+9.Vserver Snapshot Policy Information:
+
+Last login time: 7/27/2020 04:59:21
+
+
+Vserver: us01netappansiblenfsv3
+                         Number of Is
+Policy Name              Schedules Enabled Comment
+------------------------ --------- ------- ----------------------------------
+snps                             3 true    -
+    Schedule               Count     Prefix                 SnapMirror Label
+    ---------------------- -----     ---------------------- -------------------
+    hourly                     4     hourly                 -
+    daily                      2     daily                  -
+    weekly                     1     weekly                 -
+
+snps_backup                      3 true    -
+    Schedule               Count     Prefix                 SnapMirror Label
+    ---------------------- -----     ---------------------- -------------------
+    hourly                     4     hourly                 -
+    daily                      2     daily                  -
+    DPS_SV_DAILY               1     DPS_SV_DAILY           DPS_SV_DAILY
+
+2 entries were displayed.
+
+
+------------------------------------------------------------------------------------------
+10.Test User and Group:
+
+Last login time: 7/27/2020 04:59:21
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:59:21
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:59:21
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+
+Last login time: 7/27/2020 04:59:21
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+11. Verify the group listing of a user:
+
+Last login time: 7/27/2020 04:59:21
+
+
+  (vserver services name-service getxxbyyy getgrlist)
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+12.Test withdrawn user:
+
+Last login time: 7/27/2020 04:59:21
+
+
+
+Error: This command does not support queries.
+
+
+------------------------------------------------------------------------------------------
+ 13 LS mirror information
+
+Last login time: 7/27/2020 04:59:21
+                                                                       Progress
+Source            Destination Mirror  Relationship   Total             Last
+Path        Type  Path        State   Status         Progress  Healthy Updated
+----------- ---- ------------ ------- -------------- --------- ------- --------
+us01netappansible://us01netappansiblenfsv3/root_us01netappansiblenfsv3 LS us01netappansible://us01netappansiblenfsv3/root_us01netappansiblenfsv3_02_lsm Snapmirrored Idle - true -
+
+
+------------------------------------------------------------------------------------------
