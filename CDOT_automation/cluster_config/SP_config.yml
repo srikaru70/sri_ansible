@@ -1,0 +1,35 @@
+---
+##SP creation for new node###
+
+- hosts: localhost
+  gather_facts: false
+  collections:
+    - netapp.ontap
+  vars:
+    login: &login
+      hostname: "{{ cluster }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      https: true
+      validate_certs: false
+
+ ###SP_Configuratiom####
+  tasks:
+  - debug:
+       msg: "Task: SP creation on Cluster name: {{ cluster }}"
+  - name: Setup Service Processor (SP CONFIG)
+    ignore_errors: True
+    tags:
+      - SP_Configuration
+    na_ontap_service_processor_network:
+       state: present
+       node: '{{ item.node }}'
+       address_type: ipv4
+       is_enabled: true
+       ip_address: '{{ item.ip_address }}'
+       gateway_ip_address: '{{ item.gateway_ip_address }}'
+       netmask: '{{ item.netmask }}'
+   #    validate_certs: false
+       <<: *login
+    with_items: '{{ SP_Configuration }}'
+    when: SP_Configuration is defined and SP_Configuration != None

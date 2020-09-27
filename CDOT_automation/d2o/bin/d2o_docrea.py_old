@@ -1,0 +1,297 @@
+#!/users/skarupat/python364/bin/python
+import sys
+import os
+import paramiko
+import getpass
+import time
+import socket
+import smtplib
+from email.mime.text import MIMEText
+hostname = socket.gethostname()
+
+#--------------------------------------------------------------------------------------------------
+## check the sjc-nacmaster is executable host
+
+exe_host ="us01nasadmin03"
+
+if hostname != exe_host  :
+    print ( "Run the program on 'exe_host'" ) 
+    exit()  
+else: 
+
+    print ( "Please wait..........")
+
+login_user = getpass.getuser()
+sender_addr = ((login_user) + "@synopsys")
+#RSA_LOC="/root/.ssh/id_rsa"    
+Report_dir="/u/karu/d2o/report"
+Windows_path= r"\\sjc5b-netapp-ns\dfs\grc-mapping\d2o\report"
+today_date = time.strftime("%d %b %Y  %H:%M:%S")
+date = time.strftime("%H%M_%d%b%Y")
+report_name = (login_user +"_"+date+".txt")
+r_name = (Report_dir +"/"+login_user +"_"+date+".txt")
+message = (Report_dir+"/"+"message"+".txt")
+
+
+
+###SSH connection###
+client = paramiko.SSHClient()
+client.load_system_host_keys()
+client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+paramiko.util.log_to_file("filename.log")
+###Input DATA#####
+try:
+    script_name = sys.argv[0]
+    filer_name = sys.argv[1]
+    node_list = sys.argv[2] 
+    report_name = (login_user +"_"+node_list+"_"+"report_"+date+".txt")
+    #r_name = (Report_dir +"/"+login_user +"_"+date+".txt")
+    r_name = (Report_dir +"/"+report_name)
+    #r_name = ("sri" +"_"+date+".txt")
+    print ( "Script Name:"+""+script_name)
+    
+except IndexError :
+    print ( "#-----------------------Usage(Default Terminal): ./d2o_docrea.py <cluster_name> <node_name> not <svm_name>----------------------#")
+    print ( "#-----------------------Usage(Mac_OS): ./d2o_docrea.py <cluster_name> <\"node_name\"> not <svm_name>----------------------------#")
+    print ( "#-----------------------Use your cec.web account to generate the report---------------------------------------------------------#")
+    exit()
+
+print ("Node name(list):"+node_list)
+#username = ("cisco"+"\\"+login_user+".web")
+username = "admin"
+print (username)
+#print ("Enter your 'username' account passwd")
+print ("Enter your " + username + "  account passwd:")
+passwd = getpass.getpass()
+#-----------------------------------------------------------------------------------------------------------
+
+def function_title (title):
+      # r_name = ("sri" +"_"+date+".txt")
+       f=open(r_name, "a")
+       f.write(str(title) +'\n')       
+
+def function_report (output):
+      # file = ("sri.txt" +"_"+date)
+      # r_name = ("sri" +"_"+date+".txt")
+       f=open(r_name, "a")
+       f.write(str(output) +'\n')
+       line = "------------------------------------------------------------------------------------------"
+       f.write(line +'\n')
+
+
+
+###with Node List
+def filerconnect_withnode (filer_name,command):
+  client_conn = client.connect (filer_name,port=22,username=username,password=passwd)
+  node_input = node_list
+  command = command +" "+node_input
+  #print (command)
+  stdin, stdout, stderr = client.exec_command(command)
+  output = stdout.read().decode('utf-8')
+  #print (output)
+  function_report(output)
+  client.close()
+   
+
+
+###Without node list
+def filerconnect_withoutnode (filer_name,command):
+  client_conn = client.connect (filer_name,port=22,username=username,password=passwd)
+  #node_input = node_list
+  stdin, stdout, stderr = client.exec_command(command)
+  output = stdout.read().decode('utf-8')
+  function_report(output)
+  client.close()
+
+
+
+
+
+
+#-------------------------------------------------------------------------------
+f=open(r_name, "w")
+#f=open("Report_dir/"r_name, "w")
+heading = ("D2O Process Report is created for "+ node_list  + " by " + login_user +"  on " +  today_date)
+print(heading)
+f.write(heading + '\n')  
+f.write("_________________________________________________________________________________________________" + '\n') 
+f.close()
+
+###Report Generation###
+
+
+title = "1. Serial Numbers and Model:"
+#print(title)
+function_title (title)
+command = "rows 0;node show -fields serialnumber,model,health -node "
+filerconnect_withnode(filer_name,command)
+print ("1. Serial Numbers and Model:                                        Completed")
+#----------------------------------------------------------------------------------
+title = "2. ONTAP version:"
+function_title (title)
+command = "version -fields node,version"
+#function_filerconnect (filer_name,command,node_list)
+filerconnect_withoutnode (filer_name,command)
+print ("2. ONTAP version:                                                   Completed")
+#-------------------------------------------------------------------------------------
+title = "3. Switch connectivity Information:"
+function_title (title)
+#print("3.Switch connectivity Information:")
+command = "rows 0; network device-discovery show -node "
+filerconnect_withnode (filer_name,command)
+print ("3. Switch connectivity Information:                                 Completed")
+#-------------------------------------------------------------------------------------
+#print("4.Cluster LIFS Information:")
+title= "4. Cluster LIFS Information:"
+#function_title (title)
+#command = "rows 0;net int show -role data,node-mgmt,intercluster,cluster-mgmt -fields role,lif,home-node,home-port,address,netmask,curr-port,is-home,status-oper -curr-node "
+#filerconnect_withnode (filer_name,command)
+function_title (title)
+command = "rows 0;net int show -role intercluster -fields role,lif,home-node,home-port,address,netmask,curr-port,is-home,status-oper -curr-node "
+filerconnect_withnode (filer_name,command)
+command = "rows 0;net int show -role cluster-mgmt -fields role,lif,home-node,home-port,address,netmask,curr-port,is-home,status-oper -curr-node "
+filerconnect_withnode (filer_name,command)
+command = "rows 0;net int show -role node-mgmt -fields role,lif,home-node,home-port,address,netmask,curr-port,is-home,status-oper -curr-node "
+filerconnect_withnode (filer_name,command)
+command = "rows 0;net int show -role data -fields role,lif,home-node,home-port,address,netmask,curr-port,is-home,status-oper -curr-node "
+filerconnect_withnode (filer_name,command)
+print ("4. Cluster LIFS Information:                                        Completed")
+#-------------------------------------------------------------------------------------
+#print("5.Ifgroups Information:")
+title = "5. Ifgroups Information:"
+function_title (title)
+command = "rows 0 ;ifgrp show -node"
+filerconnect_withnode (filer_name,command)
+print ("5. Ifgroups Information:                                            Completed")
+#-------------------------------------------------------------------------------------
+#print("6.VLAN Information: (optional for eng clusters)")
+title = "6. VLAN Information: (optional for eng clusters)"
+function_title (title)
+command = "rows 0;net port vlan show"
+filerconnect_withoutnode (filer_name,command)
+print ("6. VLAN Information:                                                Completed")
+#-------------------------------------------------------------------------------------
+#print("7.Membership of broadcast domains Information")
+title = "7. Membership of broadcast domains Information"
+function_title (title)
+command = "rows 0 ;network port broadcast-domain show"
+filerconnect_withoutnode (filer_name,command)
+print ("7. Membership of broadcast domains Information:                     Completed")
+#--------------------------------------------------------------------------------------
+#print("8.Failover groups Information:")
+title = "8. Failover groups Information:"
+function_title (title)
+command = "rows 0 ;net interface show -data-protocol !fcp -fields failover-group,failover-policy"
+filerconnect_withoutnode (filer_name,command)
+print ("8. Failover groups Information:                                     Completed")
+#--------------------------------------------------------------------------------------
+#print("9.Aggregate Information:")
+title = "9. Aggregate Information:"
+function_title (title)
+command = "rows 0;aggr show -node"
+filerconnect_withnode (filer_name,command)
+print ("9. Aggregate Information:                                           Completed")
+#--------------------------------------------------------------------------------------
+#print("10.Cluster Ring Information: ( advanced mode):")
+title = "10. Cluster Ring Information: ( advanced mode):"
+function_title (title)
+command = "set advanced;cluster ring show -node"
+filerconnect_withnode (filer_name,command)
+print ("10. Cluster Ring Information:                                       Completed")
+#--------------------------------------------------------------------------------------
+#print("11.Storage Failover Information:")
+title = "11. Storage Failover Information:"
+function_title (title)
+command = "storage failover show -node"
+filerconnect_withnode (filer_name,command)
+print ("11. Storage Failover Information:                                   Completed")
+#--------------------------------------------------------------------------------------
+#print("12.AutoSupport configuration Information:")
+title = "12. AutoSupport configuration Information:"
+function_title (title)
+command = "rows 0;autosupport show  -fields stat,from,mail-hosts,to,support -node "
+filerconnect_withnode (filer_name,command)
+print ("12. AutoSupport configuration Information:                          Completed")
+#--------------------------------------------------------------------------------------
+#print("13.SP connections Information:")
+title = "13. SP connections Information:"
+function_title (title)
+command = "sp show -fields address,type,status,ip-configured,fw-version -node "
+filerconnect_withnode (filer_name,command)
+print ("13. SP connections Information:                                     Completed")
+#--------------------------------------------------------------------------------------
+#print("14.CDP to detect network connectivity:")
+title = "14. CDP to detect network connectivity:"
+function_title (title)
+command = "node run -node"+ " "+ node_list  +" "+"-command cdpd show-neighbors"
+filerconnect_withoutnode (filer_name,command)
+print ("14. CDP to detect network connectivity:                             Completed")
+#------------------------------------------------------------------------------------
+#print("15.DNS Information-3 servers should be listed:")
+title = "15. DNS Information-3 servers should be listed:"
+function_title (title)
+command = " rows 0; vserver services dns show"
+filerconnect_withoutnode (filer_name,command)
+print ("15. DNS Information-3 servers should be listed:                     Completed")
+#--------------------------------------------------------------------------------------
+#print("16.LDAP Information:")
+title = "16. LDAP Information:"
+function_title (title)
+command = " rows 0; vserver services ldap show"
+filerconnect_withoutnode (filer_name,command)
+command = "rows 0; vserver services ldap client show "
+filerconnect_withoutnode (filer_name,command)
+print ("16. LDAP Information:                                               Completed")
+#--------------------------------------------------------------------------------------
+#print("17. Rquota enablement:")
+title = "17. Rquota enablement:"
+function_title (title)
+command = "rows 0 ;vserver nfs show -fields rquota"
+filerconnect_withoutnode (filer_name,command)
+print ("17. Rquota enablement:                                              Completed")
+#--------------------------------------------------------------------------------------
+#print("18.OCUM details, Refer the OCUM server, copy and paste the screen shot:")
+title = "18. OCUM details, Refer to OCUM server, copy/paste the screen shot:"
+function_title (title)
+print ("18. OCUM details, Refer to OCUM server, copy/paste the screen shot: Completed")
+#--------------------------------------------------------------------------------------
+#print("19.Please contact Netapp onsite for LIF/Infratest:")
+title = "19. Please contact Netapp onsite for LIF/Infratest:"
+function_title (title)
+print ("19. Please contact Netapp onsite for LIF/Infratest:                 Completed")
+#--------------------------------------------------------------------------------------
+print()
+
+print("#--------------------------------------------------------------------------------------#")
+#print (r_name)
+print ( "Report generation is completed.")
+print ( "Report Name:"+ report_name)
+print ( "Report is avaialbe at:" + Windows_path)
+
+print("#--------------------------------------------------------------------------------------#")
+
+####Sending email notification#####
+sender_addr = ((login_user) + "@cisco.com")
+#receivers = 'skarupat@cisco.com'
+receivers = sender_addr
+#f=open("message.txt", "w")
+f=open(message, "w")
+f.write("Report Name:"+ report_name +'\n')
+f.write("Report Location: " "\\\sjc5b-netapp-ns\dfs\grc-mapping\d2o\\report"+'\n')
+f.close()
+###EMAIL Notification####
+#with open("message.txt") as f:
+with open(message) as f:
+
+   msg = MIMEText(f.read())
+   msg['Subject'] = 'D2O report ready'
+   msg['From'] = sender_addr
+   msg['To'] = receivers
+
+# Send the message via our own SMTP server.
+s = smtplib.SMTP('localhost')
+s.send_message(msg)
+s.quit()
+
+print ("Email notification has been sent to your address:" +sender_addr)
+os.remove(message) ### remove message file

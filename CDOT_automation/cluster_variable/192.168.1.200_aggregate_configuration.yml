@@ -1,0 +1,3 @@
+Aggregates_Setup:
+  - { name: us01netappansible_01_nvme_aggr2, node: us01netappansible_01, disk_count: 22, max_raid: 24 }
+  - { name: us01netappansible_01_nvme_aggr2, node: us01netappansible_02, disk_count: 22, max_raid: 24 }

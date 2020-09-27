@@ -1,0 +1,296 @@
+---
+# Playbook to create SVM (vserver) for the  environment
+#Author Sri Karu, karu@synopsys.com- Created 8/16/2020
+
+###Login details#####
+
+- hosts: localhost
+  gather_facts: false
+  collections:
+    - netapp.ontap
+  vars_prompt:
+ #  - name: Cluster
+  #   prompt
+ #  - name: username
+ #    prompt: "Enter Your {{ cluster }} username "
+ #    private: no
+  # - name: password
+   #  prompt: "Enter Your {{ cluster }} password "
+   #  https:  true
+   #  certs: false
+  vars:
+    login: &login
+      hostname: "{{ cluster }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      https: true
+      validate_certs: false
+
+ ###SVM creation####
+  tasks:
+  - debug:
+        msg: "Task 1 :SVM {{ vserver }} creation on Cluster name: {{ cluster }}"
+  - name: Vserver creation
+    ignore_errors: True
+    tags:
+      - vserver_create
+    na_ontap_svm:
+      state: present
+      name: "{{ vserver }}"
+      root_volume: "root_{{ vserver }}"
+   #   root_volume_aggregate: "{{ node02_aggregate }}"
+      root_volume_aggregate: "{{ vs_aggregate }}"
+      root_volume_security_style: unix
+      <<: *login
+
+
+  - debug:
+        msg: "Task 2 : NFS enable {{ vserver }} "
+  - name: nfsv3 enable
+    ignore_errors: True
+    tags:
+      - nfs3_enable
+    na_ontap_nfs:
+      state: present
+      service_state: started
+      vserver: "{{ vserver }}"
+      nfsv3: enabled
+      nfsv4: disabled
+      nfsv41: disabled
+      nfsv41_acl: disabled
+      showmount: enabled
+      tcp: enabled
+      udp: enabled
+      <<: *login
+
+  - debug:
+        msg: "Task 3 : DNS enable {{ vserver }} "
+  - name: create DNS
+    ignore_errors: True
+    tags:
+      - dnscreate
+    na_ontap_dns:
+      state: present
+      vserver:  "{{ vserver }}"
+      domains: "{{ domains }}"
+      nameservers: "{{ nameservers }}"
+      skip_validation: true
+      <<: *login
+
+  - debug:
+        msg: "Task 4 : Default Export policy creation {{ vserver }} "
+  - name: Create Default ExportPolicyRule
+    ignore_errors: True
+    tags:
+      - exp-policy-create
+    na_ontap_export_policy_rule:
+      state: present
+      name: default
+      vserver: "{{ vserver }}"
+      client_match: 0.0.0.0/0
+      ro_rule: any
+      rw_rule: any
+      protocol: any
+      super_user_security: none
+      allow_suid: true
+      <<: *login
+
+
+  - debug:
+        msg: "Task 5: Export Policy copy from existing Vserver"
+  - name: Export Poliocy copy
+    ignore_errors: True
+    tags:
+      - exp-policy-copy-rw
+      # There is no LDAP module yet for ontap, so we use na_ontap_command.
+    na_ontap_command:
+   #   command: ['export-policy copy -vserver', "{{ primary_vserver }}", '-policyname snps',
+   #             '-newvserver', "{{ vserver }}",'-newpolicyname', 'snps' ]
+      command: ['export-policy copy -vserver', "{{ primary_vserver  }}", '-policyname snps',
+                '-newvserver', "{{ vserver }}",'-newpolicyname', 'snps' ]
+
+      <<: *login
+
+  - debug:
+        msg: "Task 6: RO Export Policy copy from existing Vserver"
+  - name: Export Poliocy copy
+    ignore_errors: True
+    tags:
+      - exp-policy-copy-ro
+      # There is no LDAP module yet for ontap, so we use na_ontap_command.
+    na_ontap_command:
+  #     command: ['export-policy copy -vserver', "{{ primary_vserver }}", '-policyname snps_ro',
+   #             '-newvserver', "{{ vserver }}",'-newpolicyname', 'snps_ro' ]
+      command: ['export-policy copy -vserver', "{{ primary_vserver }}", '-policyname snps_ro',
+                '-newvserver', "{{ vserver }}",'-newpolicyname', 'snps_ro' ]
+      <<: *login
+
+  - debug:
+        msg: "Task 7: Ns-switch Configuration"
+  - name: Configure ldap in ns-switch
+    ignore_errors: True
+    tags:
+      - ns-switch_configure
+    # There is no LDAP module yet for ontap, so we use na_ontap_command.
+    na_ontap_command:
+      command: ['vserver', 'services', 'ns-switch', 'modify', '-vserver', "{{ vserver }}",
+                '-database', 'group,passwd,netgroup','files,ldap']
+      <<: *login
+
+  - debug:
+        msg: "Task 8: Configure Extended group NFS settings"
+  - name: Configure Extended group NFS settings.
+    ignore_errors: True
+    tags:
+      - exteneded_group_enable
+    na_ontap_command:
+      command: ['set', 'adv;', 'vserver', 'nfs', 'modify', '-vserver', "{{ vserver }}",
+                '-auth-sys-extended-groups', 'enabled', '-extended-groups-limit', '256',
+                '-cached-cred-positive-ttl', '360000', '-cached-cred-negative-ttl', '360000']
+      <<: *login
+
+  - debug:
+        msg: "Task 9: Default route create {{ vserver }} "
+  - name: create route
+    ignore_errors: True
+    tags:
+      - route_create
+    na_ontap_net_routes:
+      state: present
+      vserver: "{{ vserver }}"
+      destination: 0.0.0.0/0
+      gateway: "{{ gateway }}"
+      metric: 20
+      <<: *login
+  - debug:
+        msg: "Task 10: Name service cache setting-1 Hour"
+  - name: name service cache setting.
+    ignore_errors: True
+    tags:
+      - ns_user_setting_cache
+    na_ontap_command:
+      command: ['set', 'adv;', 'vserver', 'services', 'name-service','cache','unix-user', 'settings',
+                'modify', '-vserver', "{{ vserver }}",
+                '-negative-ttl', '1h','-ttl', '1h' ]
+      <<: *login
+
+
+  - debug:
+        msg: "Task 11 Snapshot_policy_creation"
+  - name: snapshot_policy_creation
+    ignore_errors: True
+    tags:
+     - snapshot_policy_creation
+    na_ontap_snapshot_policy:
+      state: present
+      name: snps
+      vserver: "{{ vserver }}"
+      schedule: ['hourly', 'daily', 'weekly']
+      count: [4,2,1]
+      enabled: True
+    #  https: False
+      <<: *login
+
+  - debug:
+        msg: "Task 12: Backup_snapshot_policy_creation"
+  - name: Backup_snapshot_policy_creation
+    ignore_errors: True
+    tags:
+     - backup_snapshot_policy_creation
+    na_ontap_snapshot_policy:
+      state: present
+      name: snps_backup
+      vserver: "{{ vserver }}"
+      schedule: ['hourly', 'daily','DPS_SV_DAILY']
+      snapmirror_label: ['', '', 'DPS_SV_DAILY']
+      count: [4,2,1]
+      enabled: True
+     # https: False
+      <<: *login
+
+#LDAP Client Configuration Started####
+
+###LDAP Client Creation##
+  - debug:
+        msg: "Task 13: LDAP Client Creation in Advanced mode "
+  - name: LDAP Client creation
+    ignore_errors: True
+    tags:
+      - ldapclient
+    na_ontap_ldap_client:
+      state: present
+      name: "{{ vserver }}ldap"
+      vserver: "{{ vserver }}"
+      ldap_servers: "{{ ldap_servers }}"
+      schema: "RFC-2307"
+      #schema: "SNPS"
+      base_dn: "{{ basedn }}"
+      use_start_tls: "true"
+      <<: *login
+
+  - debug:
+        msg: "Task 14: Enable LDAP on SVM "
+  - name: Enable LDAP on SVM
+    ignore_errors: True
+    na_ontap_ldap:
+      state: present
+      name: "{{ vserver }}ldap"
+      vserver: "{{ vserver }}"
+      skip_config_validation: true
+      <<: *login
+
+  - debug:
+        msg: "Task 15: LDAP Client set Synopsys Std "
+  - name: " LDAP modify "
+    ignore_errors: True
+    tags:
+      - ldapclient_modify
+    na_ontap_command:
+      command: [ 'set','adv;','ldap client modify',
+                  '-vserver', "{{ vserver }}" ,
+                  '-client-config',"{{ vserver }}ldap",
+                 '-schema', "{{ schema }}",
+                  '-user-dn',"{{ userdn }}",
+                  '-group-dn',"{{ groupdn }}",
+                  '-netgroup-dn',"{{ netgroupdn }}" ,
+                   '-skip-config-validation true']
+      <<: *login
+
+       ### LS mirror creation####
+
+  - debug:
+        msg: "Task 16: First LS Mirror Volume Creation."
+  - name: "Create LS mirror volume "
+    ignore_errors: True
+    tags:
+     - LSM Create
+    na_ontap_volume:
+       state: present
+       name: "root_{{ vserver }}_02_lsm"
+       vserver: "{{ vserver }}"
+       aggregate_name: "{{ partner_aggregate }}"
+       size: 1
+       size_unit: gb
+       type: DP
+       <<: *login
+
+  - debug:
+       msg: "Task 17: Initialize LS Mirror Create"
+  - name: "Initialize LS SnapMirror"
+    ignore_errors: True
+    tags:
+      - LS Mirror Initialize
+    na_ontap_snapmirror:
+       state: present
+       source_path: "{{ vserver }}:root_{{ vserver }}"
+       destination_path: "{{ vserver }}:root_{{ vserver }}_02_lsm"
+       schedule: "{{ schedule }}"
+       relationship_type: load_sharing
+       <<: *login
+ ## - debug:
+ ##      msg: "Task 18 Vserver Information collections"
+ ## - name: " Execute Vserver Information collectons"
+ ##   script: vserver_info.py $cluster $username $password $new_vserver $node
+
+
+####End of Vserver Creation###

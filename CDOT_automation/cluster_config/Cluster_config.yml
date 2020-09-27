@@ -1,0 +1,101 @@
+---
+##Cluster Configurration: SP_create, Aggregate_create###
+
+- hosts: localhost
+  gather_facts: false
+  collections:
+    - netapp.ontap
+  vars:
+    login: &login
+      hostname: "{{ cluster }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      https: true
+      validate_certs: false
+
+ ###SP_Configuration####
+  tasks:
+  - debug:
+       msg: "Task:1. SP creation on Cluster name: {{ cluster }}"
+  - name: Setup Service Processor (SP CONFIG)
+    ignore_errors: True
+    tags:
+      - SP_Configuration
+    na_ontap_service_processor_network:
+       state: present
+       hostname: '{{ cluster }}'
+       username: '{{ username }}'
+       password: '{{ password }}'
+       node: '{{ item.node }}'
+       address_type: ipv4
+       is_enabled: true
+       ip_address: '{{ item.ip_address }}'
+       gateway_ip_address: '{{ item.gateway_ip_address }}'
+       netmask: '{{ item.netmask }}'
+   #    validate_certs: false
+
+    with_items: '{{ SP_Configuration }}'
+    when: SP_Configuration is defined and SP_Configuration != None
+
+###Aggregate_creation"
+  - debug:
+       msg: Task:2. Aggregate Create
+  - name: Create Aggregates
+    ignore_errors: True
+    tags:
+       - Aggregate_create
+    na_ontap_aggregate:
+       state: present
+       service_state: online
+       name: '{{ item.name }}'
+       nodes: '{{ item.node }}'
+       disk_count: '{{ item.disk_count }}'
+       raid_size: '{{ item.max_raid }}'
+       hostname: '{{ cluster }}'
+       username: '{{ username }}'
+       password: '{{ password }}'
+       wait_for_online: True
+       https: true
+       validate_certs: false
+       #<<: *login
+    with_items: '{{ Aggregates_Setup }}'
+    when: Aggregates_Setup is defined and Aggregates_Setup != None
+     #  <<: *login
+
+####LS  mirror create#####
+  - debug:
+        msg: "Task 3: LS Mirror Volume Creation."
+  - name: "Create LS mirror volume "
+    ignore_errors: True
+    tags:
+     - LSM_vol_Create
+    na_ontap_volume:
+       state: present
+       name: "{{ item.vol_name }}"
+       vserver: "{{ vserver }}"
+       aggregate_name: "{{ item.aggregate_name }}"
+       size: 1
+       size_unit: gb
+       type: DP
+       <<: *login
+    with_items: '{{ LSM_volume }}'
+    when: LSM_volume is defined and LSM_volume != None
+
+  - debug:
+       msg: "Task 4: Initialize LS Mirror "
+  - name: "Initialize LS SnapMirror"
+    ignore_errors: True
+    tags:
+      - LSM_Initialize
+    na_ontap_snapmirror:
+       state: present
+     #  server: "{{ vserver }}"
+       hostname: '{{ cluster }}'
+       username: '{{ username }}'
+       password: '{{ password }}'
+       source_path: "{{ item.source_volume }}"
+       destination_path: "{{ item.destination_volume }}"
+       schedule: 30min
+       relationship_type: load_sharing
+    with_items: '{{ LSM_initialize }}'
+    when: LSM_initialize is defined and LSM_initialize != None

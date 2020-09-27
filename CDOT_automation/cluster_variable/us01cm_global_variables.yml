@@ -1,0 +1,39 @@
+---
+#Play book for  cluster information for the login
+
+ #Start playbook generic settings. #
+#
+schedule: 5min
+
+
+###DNS information###
+nameservers: "10.228.0.1,10.228.0.2"
+#nameservers: "192.168.1.211"
+domains: "internal.synopsys.com,synopsys.com"
+
+#####LDAP client settings####
+
+ldap_servers: "us01ds.internal.synopsys.com"
+#ldap_servers: "192.168.1.211"
+schema: SNPS
+port: 389
+minbindlevel: anonymous
+basedn: "dc=synopsys,dc=com"
+netgroup-scope: onelevel
+userdn: "ou=users,dc=global,dc=synopsys,dc=com"
+groupdn: "ou=group,dc=global,dc=synopsys,dc=com"
+netgroupdn: "ou=netgroup,dc=us01,dc=synopsys,dc=com"
+query_timout: "5"
+#groupmembershipfilter:"-"
+
+#Schema Settings:
+enablerfc2307bis: "true"
+groupofuniquenamesobjectclass: groupOfNames
+uniquememberattribute: member
+
+#
+
+
+
+
+

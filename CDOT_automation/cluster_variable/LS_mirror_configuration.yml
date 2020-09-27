@@ -1,0 +1,6 @@
+LSM_volume:
+  - { vol_name: root_us01netappansiblevs1_02_lsm, aggregate_name: us01netappansible_02_fcal_aggr1 }
+
+
+LSM_initilaize:
+  - { source_volume: root_us01netappansiblevs1, destination_volume: root_us01netappansiblevs1_02_lsm, schdule: 5min, relationship_type: load_sharing}

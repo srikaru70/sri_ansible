@@ -50,7 +50,7 @@ try:
 
     print ( "Cluster"+":"+cluster)
     print ( "Username"+":"+username)
-    print ( "New_Vserver"+":"+vserver)
+    print ( "Vserver"+":"+vserver)
     print ( "Node"+":"+node_list)
  #   report_name = (username +"_"+node_list+"_"+"report_"+date+".txt")
     r_name = (Report_dir +"/"+username +"_"+date+".txt")
@@ -121,7 +121,6 @@ def filerconnect_withoutnode (cluster,command):
   #client_conn = client.connect (cluster,port=22,username=username,password=password)
   #node_input = node_list
   command = command +" " +vserver
-  #print (command)
   stdin, stdout, stderr = client.exec_command(command)
   output = stdout.read().decode('utf-8')
   function_report(output)
@@ -161,15 +160,15 @@ print ("2.Vserver DNS server Information:               Completed")
 
 title = "3.Vserver NFS Information:"
 function_title (title)
-command = "rows 0 ;set advanced;vserver nfs show -vserver"
+command = "rows 0 ;set advanced ; vserver nfs show -vserver"
 filerconnect_withoutnode (cluster,command)
 print ("3.Vserver NFS Information:                      Completed")
 
-title = "4.Vserver Expoprt poliy information:"
+title = "4.Vserver Export poliy information:"
 function_title (title)
 command = "rows 0; export-policy show -policyname * -vserver"
 filerconnect_withoutnode (cluster,command)
-command = "rows 0; export-policy rule show -fields rw,ro,superuser -vserver"
+command = "rows 0; export-policy rule show -fields clientmatch,rw,ro,superuser -vserver"
 filerconnect_withoutnode (cluster,command)
 print ("4.Vserver Expoprt poliy information:            Completed")
 

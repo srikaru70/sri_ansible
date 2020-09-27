@@ -1,0 +1,3 @@
+SP_Configuration:
+  - { ip_address: 10.1.1.1, netmask: 255.255.255.0, gateway_ip_address: 10.1.1.254, node: us01netappansible_01}
+  - { ip_address: 10.1.1.2, netmask: 255.255.255.0, gateway_ip_address: 10.1.1.253, node: us01netappansible_02}

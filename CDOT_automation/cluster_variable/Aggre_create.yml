@@ -1,0 +1,3 @@
+Aggregates_Setup:
+  - { name: cluster101_nvme_aggr1, node: cluster1-01, disk_count: 5, max_raid: 22 }
+  - { name: cluster102_nvme_aggr1, node: cluster1-02, disk_count: 5, max_raid: 22 }
